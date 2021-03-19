@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcHandsOn.Protos";
+
+package brooker;
+
+service Brooker {
+  // Sends a greeting
+  rpc SendEmail (Brookerequest) returns (HelloReply);
+  rpc SendSMS (Brookerequest) returns (HelloReply);
+}
+
+// The request message containing the user's name.
+message Brookerequest {
+  string correlationId = 1;
+  string content = 2;
+  SenderRequest sender = 3;
+  repeated FileRequest  file = 4;
+}
+
+message SenderRequest{
+	string from = 1;
+	string fromName = 2;
+}
+
+message FileRequest{
+	string type =1;
+	string base64 = 2;
+}
+// The response message containing the greetings.
+message HelloReply {
+  string message = 1;
+}
